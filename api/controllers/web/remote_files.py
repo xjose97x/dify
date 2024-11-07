@@ -16,7 +16,7 @@ from .error import FileTooLargeError, UnsupportedFileTypeError
 
 class RemoteFileInfoApi(WebApiResource):
     @marshal_with(remote_file_info_fields)
-    def get(self, url):
+    def get(self, app_model, end_user, url):
         decoded_url = urllib.parse.unquote(url)
         resp = ssrf_proxy.head(decoded_url)
         if resp.status_code != httpx.codes.OK:
