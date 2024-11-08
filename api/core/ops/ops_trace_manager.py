@@ -23,6 +23,7 @@ from core.ops.entities.trace_entity import (
     MessageTraceInfo,
     ModerationTraceInfo,
     SuggestedQuestionTraceInfo,
+    TaskData,
     ToolTraceInfo,
     TraceTaskName,
     WorkflowTraceInfo,
@@ -710,7 +711,7 @@ class TraceQueueManager:
                 trace_task.app_id = self.app_id
                 trace_manager_queue.put(trace_task)
         except Exception as e:
-            logging.error(f"Error adding trace task: {e}")
+            logging.exception(f"Error adding trace task: {e}")
         finally:
             self.start_timer()
 
@@ -729,7 +730,7 @@ class TraceQueueManager:
             if tasks:
                 self.send_to_celery(tasks)
         except Exception as e:
-            logging.error(f"Error processing trace tasks: {e}")
+            logging.exception(f"Error processing trace tasks: {e}")
 
     def start_timer(self):
         global trace_manager_timer
@@ -744,10 +745,16 @@ class TraceQueueManager:
             for task in tasks:
                 file_id = uuid4().hex
                 trace_info = task.execute()
-                task_data = {
+                task_data = TaskData(
+                    app_id=task.app_id,
+                    trace_info_type=type(trace_info).__name__,
+                    trace_info=trace_info.model_dump() if trace_info else None,
+                )
+                file_path = f"{OPS_FILE_PATH}{task.app_id}/{file_id}.json"
+                storage.save(file_path, task_data.model_dump_json().encode("utf-8"))
+                file_info = {
+                    "file_id": file_id,
                     "app_id": task.app_id,
-                    "trace_info_type": type(trace_info).__name__,
-                    "trace_info": trace_info.model_dump() if trace_info else {},
                 }
                 task_data = convert_datetime_to_str(task_data)
                 json_data = json.dumps(task_data, ensure_ascii=False).encode("utf-8")

@@ -71,7 +71,7 @@ class FATTestApi(Resource):
                     ) cf
                     GROUP BY 
                         cf."Component", cf."FailureMode", cf."Cause", cf."RepairAction";
-            """)
+            """)  # noqa: E501
             )
             db.session.commit()
         except Exception as e:
@@ -81,7 +81,7 @@ class FATTestApi(Resource):
         # [
         #     (17, 'Hydraulic system', 'Leak', 'Hose rupture', 'Replaced hydraulic hose', 0.3333333333333333, None),
         #     (18, 'Hydraulic system', 'Leak', 'Seal Wear', 'Replaced the faulty seal', 0.3333333333333333, None),
-        #     (19, 'Hydraulic system', 'Pressure drop', 'Fluid leak', 'Replaced hydraulic fluid and seals', 0.3333333333333333, None)
+        #     (19, 'Hydraulic system', 'Pressure drop', 'Fluid leak', 'Replaced hydraulic fluid and seals', 0.3333333333333333, None)  # noqa: E501
         # ]
 
         component_failure_stats = db.session.query(ComponentFailureStats).all()
