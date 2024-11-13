@@ -16,7 +16,7 @@ import type {
   WorkflowFinishedResponse,
   WorkflowStartedResponse,
 } from '@/types/workflow'
-import { removeAccessToken } from '@/app/components/share/utils'
+import { getSharedToken, removeAccessToken } from '@/app/components/share/utils'
 const TIME_OUT = 100000
 
 const ContentType = {
@@ -295,7 +295,8 @@ const baseFetch = <T>(
     options.signal = abortController.signal
   }
   if (isPublicAPI) {
-    const sharedToken = globalThis.location.pathname.split('/').slice(-1)[0]
+    const sharedToken = getSharedToken()
+    // const sharedToken = globalThis.location.pathname.split('/').slice(-1)[0]
     const accessToken = localStorage.getItem('token') || JSON.stringify({ [sharedToken]: '' })
     let accessTokenJson = { [sharedToken]: '' }
     try {
@@ -404,7 +405,7 @@ export const upload = (options: any, isPublicAPI?: boolean, url?: string, search
   const urlPrefix = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX
   let token = ''
   if (isPublicAPI) {
-    const sharedToken = globalThis.location.pathname.split('/').slice(-1)[0]
+    const sharedToken = getSharedToken()
     const accessToken = localStorage.getItem('token') || JSON.stringify({ [sharedToken]: '' })
     let accessTokenJson = { [sharedToken]: '' }
     try {

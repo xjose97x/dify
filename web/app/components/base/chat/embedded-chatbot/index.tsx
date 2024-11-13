@@ -1,10 +1,12 @@
 import {
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 import { useAsyncEffect } from 'ahooks'
 import { useTranslation } from 'react-i18next'
 import { RiLoopLeftLine } from '@remixicon/react'
+import { getProcessedInputsFromUrlParams } from '../utils'
 import {
   EmbeddedChatbotContext,
   useEmbeddedChatbotContext,
@@ -13,7 +15,7 @@ import { useEmbeddedChatbot } from './hooks'
 import { isDify } from './utils'
 import { useThemeContext } from './theme/theme-context'
 import cn from '@/utils/classnames'
-import { checkOrSetAccessToken } from '@/app/components/share/utils'
+import { checkOrSetAccessToken, setSharedToken } from '@/app/components/share/utils'
 import AppUnavailable from '@/app/components/base/app-unavailable'
 import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
 import Loading from '@/app/components/base/loading'
@@ -91,7 +93,7 @@ const Chatbot = () => {
                     popupContent={t('share.chat.resetChat')}
                   >
                     <div className='p-1.5 bg-white border-[0.5px] border-gray-100 rounded-lg shadow-md cursor-pointer' onClick={handleNewConversation}>
-                      <RiLoopLeftLine className="h-4 w-4 text-gray-500"/>
+                      <RiLoopLeftLine className="h-4 w-4 text-gray-500" />
                     </div>
                   </Tooltip>
                 </div>
@@ -176,8 +178,13 @@ const EmbeddedChatbot = () => {
   const [appUnavailable, setAppUnavailable] = useState<boolean>(false)
   const [isUnknownReason, setIsUnknownReason] = useState<boolean>(false)
 
+  const parameters = useMemo(() => {
+    return getProcessedInputsFromUrlParams()
+  }, [getProcessedInputsFromUrlParams])
+
   useAsyncEffect(async () => {
-    if (!initialized) {
+    if (!initialized && parameters.token) {
+      setSharedToken(parameters.token)
       try {
         await checkOrSetAccessToken()
       }
@@ -192,7 +199,7 @@ const EmbeddedChatbot = () => {
       }
       setInitialized(true)
     }
-  }, [])
+  }, [parameters])
 
   if (!initialized)
     return null

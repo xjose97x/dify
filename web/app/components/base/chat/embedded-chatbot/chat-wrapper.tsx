@@ -8,7 +8,6 @@ import type {
 import { useChat } from '../chat/hooks'
 import { getLastAnswer } from '../utils'
 import { useEmbeddedChatbotContext } from './context'
-import ConfigPanel from './config-panel'
 import { isDify } from './utils'
 import cn from '@/utils/classnames'
 import {
@@ -126,7 +125,6 @@ const ChatWrapper = () => {
           {!currentConversationId && (
             <div className={cn('mx-auto w-full max-w-full tablet:px-4', isMobile && 'px-4')}>
               <div className='mb-6' />
-              <ConfigPanel />
               <div
                 className='my-6 h-[1px]'
                 style={{ background: 'linear-gradient(90deg, rgba(242, 244, 247, 0.00) 0%, #F2F4F7 49.17%, rgba(242, 244, 247, 0.00) 100%)' }}

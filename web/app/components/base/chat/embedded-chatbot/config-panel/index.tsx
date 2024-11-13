@@ -3,14 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { useEmbeddedChatbotContext } from '../context'
 import { useThemeContext } from '../theme/theme-context'
 import { CssTransform } from '../theme/utils'
-import Form from './form'
 import cn from '@/utils/classnames'
 import Button from '@/app/components/base/button'
 import AppIcon from '@/app/components/base/app-icon'
 import { MessageDotsCircle } from '@/app/components/base/icons/src/vender/solid/communication'
 import { Edit02 } from '@/app/components/base/icons/src/vender/line/general'
 import { Star06 } from '@/app/components/base/icons/src/vender/solid/shapes'
-import LogoSite from '@/app/components/base/logo/logo-site'
 
 const ConfigPanel = () => {
   const { t } = useTranslation()
@@ -101,7 +99,6 @@ const ConfigPanel = () => {
         {
           !collapsed && !showConfigPanelBeforeChat && (
             <div className='p-6 rounded-b-xl'>
-              <Form />
               <div className={cn('pl-[136px] flex items-center', isMobile && '!pl-0')}>
                 <Button
                   styleCss={CssTransform(themeBuilder.theme?.backgroundButtonDefaultColorStyle ?? '')}
@@ -126,10 +123,9 @@ const ConfigPanel = () => {
         {
           showConfigPanelBeforeChat && (
             <div className='p-6 rounded-b-xl'>
-              <Form />
               <Button
                 styleCss={CssTransform(themeBuilder.theme?.backgroundButtonDefaultColorStyle ?? '')}
-                className={cn(inputsForms.length && !isMobile && 'ml-[136px]')}
+                className={cn(inputsForms.length && !isMobile)}
                 variant='primary'
                 size='large'
                 onClick={handleStartChat}
@@ -154,22 +150,6 @@ const ConfigPanel = () => {
               </div>
               : <div>
               </div>}
-            {
-              customConfig?.remove_webapp_brand
-                ? null
-                : (
-                  <div className={cn('flex items-center justify-end', isMobile && 'w-full')}>
-                    <div className='flex items-center pr-3 space-x-3'>
-                      <span className='uppercase'>{t('share.chat.poweredBy')}</span>
-                      {
-                        customConfig?.replace_webapp_logo
-                          ? <img src={customConfig?.replace_webapp_logo} alt='logo' className='block w-auto h-5' />
-                          : <LogoSite className='!h-5' />
-                      }
-                    </div>
-                  </div>
-                )
-            }
           </div>
         )
       }

@@ -1,8 +1,17 @@
 import { CONVERSATION_ID_INFO } from '../base/chat/constants'
 import { fetchAccessToken } from '@/service/share'
 
+export const getSharedToken = () => {
+  return window['difyToken' as any] as unknown as string
+}
+
+export const setSharedToken = (token: string) => {
+  window['difyToken' as any] = token as any
+}
+
 export const checkOrSetAccessToken = async () => {
-  const sharedToken = globalThis.location.pathname.split('/').slice(-1)[0]
+  const sharedToken = getSharedToken()
+  // const sharedToken = globalThis.location.pathname.split('/').slice(-1)[0]
   const accessToken = localStorage.getItem('token') || JSON.stringify({ [sharedToken]: '' })
   let accessTokenJson = { [sharedToken]: '' }
   try {
@@ -35,7 +44,7 @@ export const setAccessToken = async (sharedToken: string, token: string) => {
 }
 
 export const removeAccessToken = () => {
-  const sharedToken = globalThis.location.pathname.split('/').slice(-1)[0]
+  const sharedToken = getSharedToken()
 
   const accessToken = localStorage.getItem('token') || JSON.stringify({ [sharedToken]: '' })
   let accessTokenJson = { [sharedToken]: '' }

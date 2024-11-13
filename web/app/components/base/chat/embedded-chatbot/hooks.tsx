@@ -36,6 +36,7 @@ import { TransferMethod } from '@/types/app'
 export const useEmbeddedChatbot = () => {
   const isInstalledApp = false
   const { data: appInfo, isLoading: appInfoLoading, error: appInfoError } = useSWR('appInfo', fetchAppInfo)
+  const [initInputs, setInitInputs] = useState<Record<string, any>>({})
 
   const appData = useMemo(() => {
     return appInfo
@@ -43,7 +44,10 @@ export const useEmbeddedChatbot = () => {
   const appId = useMemo(() => appData?.app_id, [appData])
 
   useEffect(() => {
-    if (appInfo?.site.default_language)
+    if (initInputs.lang)
+      changeLanguage(initInputs.lang)
+
+    else if (appInfo?.site.default_language)
       changeLanguage(appInfo.site.default_language)
   }, [appInfo])
 
@@ -90,7 +94,6 @@ export const useEmbeddedChatbot = () => {
   const { t } = useTranslation()
   const newConversationInputsRef = useRef<Record<string, any>>({})
   const [newConversationInputs, setNewConversationInputs] = useState<Record<string, any>>({})
-  const [initInputs, setInitInputs] = useState<Record<string, any>>({})
   const handleNewConversationInputsChange = useCallback((newInputs: Record<string, any>) => {
     newConversationInputsRef.current = newInputs
     setNewConversationInputs(newInputs)
@@ -272,7 +275,7 @@ export const useEmbeddedChatbot = () => {
       handleConversationIdInfoChange('')
       setShowConfigPanelBeforeChat(true)
       setShowNewConversationItemInList(true)
-      handleNewConversationInputsChange({})
+      // handleNewConversationInputsChange({})
     }
   }, [handleChangeConversation, currentConversationId, handleConversationIdInfoChange, setShowConfigPanelBeforeChat, setShowNewConversationItemInList, showNewConversationItemInList, handleNewConversationInputsChange])
 
