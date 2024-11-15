@@ -73,8 +73,13 @@ const ChatWrapper = () => {
   }, [])
 
   const doSend: OnSend = useCallback((message, files, last_answer) => {
+    const query = `<pageContext style="display: none">
+     El usuario esta actualmente en la pagina: ${newConversationInputs.currentPage}
+    </pageContext>
+    <message>${message}</message>
+    `
     const data: any = {
-      query: message,
+      query,
       files,
       inputs: currentConversationId ? currentConversationItem?.inputs : newConversationInputs,
       conversation_id: currentConversationId,
