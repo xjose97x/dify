@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { RiCloseLine } from '@remixicon/react'
 import ModerationContent from './moderation-content'
 import FormGeneration from './form-generation'
-import ApiBasedExtensionSelector from '@/app/components/header/account-setting/api-based-extension-page/selector'
 import Modal from '@/app/components/base/modal'
 import Button from '@/app/components/base/button'
 import { BookOpen01 } from '@/app/components/base/icons/src/vender/line/education'
@@ -21,7 +20,6 @@ import I18n from '@/context/i18n'
 import { LanguagesSupported } from '@/i18n/language'
 import { InfoCircle } from '@/app/components/base/icons/src/vender/line/general'
 import { useModalContext } from '@/context/modal-context'
-import { CustomConfigurationStatusEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
 
 const systemTypes = ['openai_moderation', 'keywords', 'api']
 
@@ -60,12 +58,7 @@ const ModerationSettingModal: FC<ModerationSettingModalProps> = ({
     '/code-based-extension?module=moderation',
     fetchCodeBasedExtensionList,
   )
-  const openaiProvider = modelProviders?.data.find(item => item.provider === 'openai')
-  const systemOpenaiProviderEnabled = openaiProvider?.system_configuration.enabled
-  const systemOpenaiProviderQuota = systemOpenaiProviderEnabled ? openaiProvider?.system_configuration.quota_configurations.find(item => item.quota_type === openaiProvider.system_configuration.current_quota_type) : undefined
-  const systemOpenaiProviderCanUse = systemOpenaiProviderQuota?.is_valid
-  const customOpenaiProvidersCanUse = openaiProvider?.custom_configuration.status === CustomConfigurationStatusEnum.active
-  const isOpenAIProviderConfigured = customOpenaiProvidersCanUse || systemOpenaiProviderCanUse
+  const isOpenAIProviderConfigured = false
   const providers: Provider[] = [
     {
       key: 'openai_moderation',
@@ -319,10 +312,6 @@ const ModerationSettingModal: FC<ModerationSettingModalProps> = ({
                 {t('common.apiBasedExtension.link')}
               </a>
             </div>
-            <ApiBasedExtensionSelector
-              value={localeData.config?.api_based_extension_id || ''}
-              onChange={handleDataApiBasedChange}
-            />
           </div>
         )
       }

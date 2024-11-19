@@ -10,7 +10,6 @@ import { fetchCurrentWorkspace, fetchLanggeniusVersion, fetchUserProfile, getSys
 import type { App } from '@/types/app'
 import { Theme } from '@/types/app'
 import type { ICurrentWorkspace, LangGeniusVersionResponse, UserProfileResponse } from '@/models/common'
-import MaintenanceNotice from '@/app/components/header/maintenance-notice'
 import type { SystemFeatures } from '@/types/feature'
 import { defaultSystemFeatures } from '@/types/feature'
 
@@ -159,7 +158,6 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
       mutateCurrentWorkspace,
     }}>
       <div className='flex flex-col h-full overflow-y-auto'>
-        {globalThis.document?.body?.getAttribute('data-public-maintenance-notice') && <MaintenanceNotice />}
         <div ref={pageContainerRef} className='grow relative flex flex-col overflow-y-auto overflow-x-hidden bg-background-body'>
           {children}
         </div>

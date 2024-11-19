@@ -9,7 +9,6 @@ import Confirm from '@/app/components/base/confirm'
 import { addAnnotation, editAnnotation } from '@/service/annotation'
 import Toast from '@/app/components/base/toast'
 import { useProviderContext } from '@/context/provider-context'
-import AnnotationFull from '@/app/components/billing/annotation-full'
 import useTimestamp from '@/hooks/use-timestamp'
 
 type Props = {
@@ -114,12 +113,6 @@ const EditAnnotationModal: FC<Props> = ({
         )}
         foot={
           <div>
-            {isAnnotationFull && (
-              <div className='mt-6 mb-4 px-6'>
-                <AnnotationFull />
-              </div>
-            )}
-
             {
               annotationId
                 ? (

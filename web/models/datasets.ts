@@ -2,22 +2,12 @@ import type { DataSourceNotionPage, DataSourceProvider } from './common'
 import type { AppIconType, AppMode, RetrievalConfig } from '@/types/app'
 import type { Tag } from '@/app/components/base/tag-management/constant'
 
-export enum DataSourceType {
-  FILE = 'upload_file',
-  NOTION = 'notion_import',
-  WEB = 'website_crawl',
-}
-
-export type DatasetPermission = 'only_me' | 'all_team_members' | 'partial_members'
-
 export type DataSet = {
   id: string
   name: string
   icon: string
   icon_background: string
   description: string
-  permission: DatasetPermission
-  data_source_type: DataSourceType
   indexing_technique: 'high_quality' | 'economy'
   created_by: string
   updated_by: string
@@ -65,7 +55,6 @@ export type ExternalKnowledgeItem = {
   name: string
   description: string | null
   provider: 'external'
-  permission: DatasetPermission
   data_source_type: null
   indexing_technique: null
   app_count: number
@@ -242,7 +231,6 @@ export type InitialDocumentDetail = {
   batch: string
   position: number
   dataset_id: string
-  data_source_type: DataSourceType
   data_source_info: DataSourceInfo
   dataset_process_rule_id: string
   name: string
@@ -301,9 +289,7 @@ export type IndexingEstimateParams = DocumentReq & Partial<DataSource> & {
 }
 
 export type DataSource = {
-  type: DataSourceType
   info_list: {
-    data_source_type: DataSourceType
     notion_info_list?: NotionInfo[]
     file_info_list?: {
       file_ids: string[]

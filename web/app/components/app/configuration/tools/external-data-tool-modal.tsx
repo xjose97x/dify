@@ -7,7 +7,6 @@ import FormGeneration from '@/app/components/base/features/new-feature-panel/mod
 import Modal from '@/app/components/base/modal'
 import Button from '@/app/components/base/button'
 import EmojiPicker from '@/app/components/base/emoji-picker'
-import ApiBasedExtensionSelector from '@/app/components/header/account-setting/api-based-extension-page/selector'
 import { BookOpen01 } from '@/app/components/base/icons/src/vender/line/education'
 import { fetchCodeBasedExtensionList } from '@/service/common'
 import { SimpleSelect } from '@/app/components/base/select'
@@ -250,10 +249,6 @@ const ExternalDataToolModal: FC<ExternalDataToolModalProps> = ({
                 {t('common.apiBasedExtension.link')}
               </a>
             </div>
-            <ApiBasedExtensionSelector
-              value={localeData.config?.api_based_extension_id || ''}
-              onChange={handleDataApiBasedChange}
-            />
           </div>
         )
       }

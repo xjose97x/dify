@@ -2,7 +2,6 @@
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import cn from '@/utils/classnames'
-import Indicator from '@/app/components/header/indicator'
 import StatusContainer from '@/app/components/workflow/run/status-container'
 
 type ResultProps = {
@@ -34,30 +33,6 @@ const StatusPanel: FC<ResultProps> = ({
               status === 'running' && 'text-util-colors-blue-light-blue-light-600',
             )}
           >
-            {status === 'running' && (
-              <>
-                <Indicator color={'blue'} />
-                <span>Running</span>
-              </>
-            )}
-            {status === 'succeeded' && (
-              <>
-                <Indicator color={'green'} />
-                <span>SUCCESS</span>
-              </>
-            )}
-            {status === 'failed' && (
-              <>
-                <Indicator color={'red'} />
-                <span>FAIL</span>
-              </>
-            )}
-            {status === 'stopped' && (
-              <>
-                <Indicator color={'yellow'} />
-                <span>STOP</span>
-              </>
-            )}
           </div>
         </div>
         <div className='flex-[33%] max-w-[152px]'>
