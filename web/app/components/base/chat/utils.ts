@@ -1,4 +1,3 @@
-import { addFileInfos, sortAgentSorts } from '../../tools/utils'
 import { UUID_NIL } from './constants'
 import type { IChatItem } from './chat/type'
 import type { ChatItem, ChatItemInTree } from './types'
@@ -36,7 +35,6 @@ function appendQAToChatList(chatList: ChatItem[], item: any) {
   chatList.push({
     id: item.id,
     content: item.answer,
-    agent_thoughts: addFileInfos(item.agent_thoughts ? sortAgentSorts(item.agent_thoughts) : item.agent_thoughts, item.message_files),
     feedback: item.feedback,
     isAnswer: true,
     citation: item.retriever_resources,

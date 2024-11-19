@@ -3,7 +3,6 @@
 import type { ChangeEvent, FC } from 'react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { varHighlightHTML } from '../../app/configuration/base/var-highlight'
 import Toast from '../toast'
 import classNames from '@/utils/classnames'
 import { checkKeys } from '@/utils/var'
@@ -69,7 +68,6 @@ const BlockInput: FC<IBlockInputProps> = ({
   const coloredContent = (currentValue || '')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(regex, varHighlightHTML({ name: '$1' })) // `<span class="${highLightClassName}">{{$1}}</span>`
     .replace(/\n/g, '<br />')
 
   // Not use useCallback. That will cause out callback get old data.

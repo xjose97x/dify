@@ -6,7 +6,6 @@ import ToggleExpandBtn from '../toggle-expand-btn'
 import type { CodeLanguage } from '../../../code/types'
 import Wrap from './wrap'
 import cn from '@/utils/classnames'
-import PromptEditorHeightResizeWrap from '@/app/components/app/configuration/config-prompt/prompt-editor-height-resize-wrap'
 import {
   Clipboard,
   ClipboardCheck,
@@ -88,16 +87,6 @@ const Base: FC<Props> = ({
             </div>
           </div>
         </div>
-        <PromptEditorHeightResizeWrap
-          height={isExpand ? editorExpandHeight : editorContentHeight}
-          minHeight={editorContentMinHeight}
-          onHeightChange={setEditorContentHeight}
-          hideResize={isExpand}
-        >
-          <div className='h-full pb-2'>
-            {children}
-          </div>
-        </PromptEditorHeightResizeWrap>
         {showFileList && fileList.length > 0 && (
           <FileListInLog fileList={fileList} />
         )}
