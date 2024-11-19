@@ -16,7 +16,6 @@ import More from './more'
 import WorkflowProcess from './workflow-process'
 import LoadingAnim from '@/app/components/base/chat/chat/loading-anim'
 import Citation from '@/app/components/base/chat/chat/citation'
-import { EditTitle } from '@/app/components/app/annotation/edit-annotation-modal/edit-item'
 import type { AppData } from '@/models/share'
 import AnswerIcon from '@/app/components/base/answer-icon'
 import { ChevronRight } from '@/app/components/base/icons/src/vender/line/arrows'
@@ -189,14 +188,6 @@ const Answer: FC<AnswerProps> = ({
                   showDeleteAction={false}
                   showDownloadAction
                   canPreview
-                />
-              )
-            }
-            {
-              annotation?.id && annotation.authorName && (
-                <EditTitle
-                  className='mt-1'
-                  title={t('appAnnotation.editBy', { author: annotation.authorName })}
                 />
               )
             }

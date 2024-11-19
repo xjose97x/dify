@@ -24,7 +24,6 @@ import { useToastContext } from '@/app/components/base/toast'
 import { ssePost } from '@/service/base'
 import type { Annotation } from '@/models/log'
 import { WorkflowRunningStatus } from '@/app/components/workflow/types'
-import useTimestamp from '@/hooks/use-timestamp'
 import { AudioPlayerManager } from '@/app/components/base/audio-btn/audio.player.manager'
 import type { FileEntity } from '@/app/components/base/file-uploader/types'
 import {
@@ -50,7 +49,6 @@ export const useChat = (
   stopChat?: (taskId: string) => void,
 ) => {
   const { t } = useTranslation()
-  const { formatTime } = useTimestamp()
   const { notify } = useToastContext()
   const conversationId = useRef('')
   const hasStopResponded = useRef(false)
@@ -327,7 +325,7 @@ export const useChat = (
                       : []),
                   ],
                   more: {
-                    time: formatTime(newResponseItem.created_at, 'hh:mm A'),
+                    time: newResponseItem.created_at,
                     tokens: newResponseItem.answer_tokens + newResponseItem.message_tokens,
                     latency: newResponseItem.provider_response_latency.toFixed(2),
                   },
@@ -548,7 +546,6 @@ export const useChat = (
     notify,
     handleUpdateChatList,
     handleResponding,
-    formatTime,
     params.token,
     params.appId,
     pathname,

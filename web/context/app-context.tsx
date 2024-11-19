@@ -4,10 +4,7 @@ import { createRef, useCallback, useEffect, useMemo, useRef, useState } from 're
 import useSWR from 'swr'
 import { createContext, useContext, useContextSelector } from 'use-context-selector'
 import type { FC, ReactNode } from 'react'
-import { fetchAppList } from '@/service/apps'
-import Loading from '@/app/components/base/loading'
 import { fetchCurrentWorkspace, fetchLanggeniusVersion, fetchUserProfile, getSystemFeatures } from '@/service/common'
-import type { App } from '@/types/app'
 import { Theme } from '@/types/app'
 import type { ICurrentWorkspace, LangGeniusVersionResponse, UserProfileResponse } from '@/models/common'
 import type { SystemFeatures } from '@/types/feature'
@@ -16,10 +13,7 @@ import { defaultSystemFeatures } from '@/types/feature'
 export type AppContextValue = {
   theme: Theme
   setTheme: (theme: Theme) => void
-  apps: App[]
   systemFeatures: SystemFeatures
-  mutateApps: VoidFunction
-  userProfile: UserProfileResponse
   mutateUserProfile: VoidFunction
   currentWorkspace: ICurrentWorkspace
   isCurrentWorkspaceManager: boolean
@@ -57,15 +51,6 @@ const AppContext = createContext<AppContextValue>({
   theme: Theme.light,
   systemFeatures: defaultSystemFeatures,
   setTheme: () => { },
-  apps: [],
-  mutateApps: () => { },
-  userProfile: {
-    id: '',
-    name: '',
-    email: '',
-    avatar: '',
-    is_password_set: false,
-  },
   currentWorkspace: initialWorkspaceInfo,
   isCurrentWorkspaceManager: false,
   isCurrentWorkspaceOwner: false,
@@ -89,7 +74,6 @@ export type AppContextProviderProps = {
 export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) => {
   const pageContainerRef = useRef<HTMLDivElement>(null)
 
-  const { data: appList, mutate: mutateApps } = useSWR({ url: '/apps', params: { page: 1, limit: 30, name: '' } }, fetchAppList)
   const { data: userProfileResponse, mutate: mutateUserProfile } = useSWR({ url: '/account/profile', params: {} }, fetchUserProfile)
   const { data: currentWorkspaceResponse, mutate: mutateCurrentWorkspace } = useSWR({ url: '/workspaces/current', params: {} }, fetchCurrentWorkspace)
 
@@ -135,17 +119,11 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!appList || !userProfile)
-    return <Loading type='app' />
-
   return (
     <AppContext.Provider value={{
       theme,
       setTheme: handleSetTheme,
-      apps: appList.data,
       systemFeatures,
-      mutateApps,
-      userProfile,
       mutateUserProfile,
       pageContainerRef,
       langeniusVersionInfo,
