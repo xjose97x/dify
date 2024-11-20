@@ -54,22 +54,6 @@ export type AppMode = typeof AppModes[number]
 export const VariableTypes = ['string', 'number', 'select'] as const
 export type VariableType = typeof VariableTypes[number]
 
-/**
- * Prompt variable parameter
- */
-export type PromptVariable = {
-  /** Variable key */
-  key: string
-  /** Variable name */
-  name: string
-  /** Type */
-  type: VariableType
-  required: boolean
-  /** Enumeration of single-selection drop-down values */
-  options?: string[]
-  max_length?: number
-}
-
 export type TextTypeFormItem = {
   default: string
   label: string

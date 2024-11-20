@@ -3,7 +3,6 @@ import type {
   ReactNode,
 } from 'react'
 import { memo, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import type {
   ChatConfig,
   ChatItem,
@@ -19,6 +18,7 @@ import AnswerIcon from '@/app/components/base/answer-icon'
 import { ChevronRight } from '@/app/components/base/icons/src/vender/line/arrows'
 import cn from '@/utils/classnames'
 import { FileList } from '@/app/components/base/file-uploader'
+import type { AppData } from '@/models/share'
 
 type AnswerProps = {
   item: ChatItem
@@ -30,6 +30,7 @@ type AnswerProps = {
   showPromptLog?: boolean
   chatAnswerContainerInner?: string
   hideProcessDetail?: boolean
+  appData?: AppData
   noChatInput?: boolean
   switchSibling?: (siblingMessageId: string) => void
 }
@@ -42,11 +43,9 @@ const Answer: FC<AnswerProps> = ({
   responding,
   showPromptLog,
   chatAnswerContainerInner,
-  hideProcessDetail,
   noChatInput,
   switchSibling,
 }) => {
-  const { t } = useTranslation()
   const {
     content,
     citation,

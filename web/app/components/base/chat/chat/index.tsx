@@ -31,6 +31,7 @@ import Button from '@/app/components/base/button'
 import { StopCircle } from '@/app/components/base/icons/src/vender/solid/mediaAndDevices'
 import PromptLogModal from '@/app/components/base/prompt-log-modal'
 import { useStore as useAppStore } from '@/app/components/app/store'
+import type { Emoji } from '@/app/components/tools/types'
 import type { AppData } from '@/models/share'
 
 export type ChatProps = {
@@ -53,6 +54,7 @@ export type ChatProps = {
   showPromptLog?: boolean
   questionIcon?: ReactNode
   answerIcon?: ReactNode
+  allToolIcons?: Record<string, string | Emoji>
   onAnnotationEdited?: (question: string, answer: string, index: number) => void
   onAnnotationAdded?: (annotationId: string, authorName: string, question: string, answer: string, index: number) => void
   onAnnotationRemoved?: (index: number) => void
