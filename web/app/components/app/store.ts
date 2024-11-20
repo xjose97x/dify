@@ -5,7 +5,6 @@ import type { IChatItem } from '@/app/components/base/chat/chat/type'
 type State = {
   appDetail?: App
   currentLogItem?: IChatItem
-  currentLogModalActiveTab: string
   showPromptLogModal: boolean
   showAgentLogModal: boolean
   showMessageLogModal: boolean
@@ -13,7 +12,6 @@ type State = {
 
 type Action = {
   setCurrentLogItem: (item?: IChatItem) => void
-  setCurrentLogModalActiveTab: (tab: string) => void
   setShowPromptLogModal: (showPromptLogModal: boolean) => void
   setShowAgentLogModal: (showAgentLogModal: boolean) => void
   setShowMessageLogModal: (showMessageLogModal: boolean) => void
@@ -24,7 +22,6 @@ export const useStore = create<State & Action>(set => ({
   currentLogItem: undefined,
   currentLogModalActiveTab: 'DETAIL',
   setCurrentLogItem: currentLogItem => set(() => ({ currentLogItem })),
-  setCurrentLogModalActiveTab: currentLogModalActiveTab => set(() => ({ currentLogModalActiveTab })),
   showPromptLogModal: false,
   setShowPromptLogModal: showPromptLogModal => set(() => ({ showPromptLogModal })),
   showAgentLogModal: false,
