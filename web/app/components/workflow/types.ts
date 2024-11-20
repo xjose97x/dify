@@ -31,3 +31,11 @@ export type UploadFileSetting = {
 }
 
 export type ValueSelector = string[] // [nodeId, key | obj key path]
+
+export enum WorkflowRunningStatus {
+  Waiting = 'waiting',
+  Running = 'running',
+  Succeeded = 'succeeded',
+  Failed = 'failed',
+  Stopped = 'stopped',
+}

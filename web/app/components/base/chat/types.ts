@@ -65,10 +65,6 @@ export type ChatItem = IChatItem & {
   allFiles?: FileEntity[]
 }
 
-export type ChatItemInTree = {
-  children?: ChatItemInTree[]
-} & IChatItem
-
 export type OnSend = (message: string, files?: FileEntity[], last_answer?: ChatItem | null) => void
 
 export type OnRegenerate = (chatItem: ChatItem) => void
