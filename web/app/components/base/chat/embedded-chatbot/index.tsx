@@ -1,7 +1,6 @@
 'use client'
 import {
   useEffect,
-  useMemo,
   useState,
 } from 'react'
 import { useAsyncEffect } from 'ahooks'
@@ -178,12 +177,16 @@ const EmbeddedChatbot = () => {
   const [initialized, setInitialized] = useState(false)
   const [appUnavailable, setAppUnavailable] = useState<boolean>(false)
   const [isUnknownReason, setIsUnknownReason] = useState<boolean>(false)
+  const [parameters, setParameters] = useState<any>(null)
 
-  const parameters = useMemo(() => {
-    return getProcessedInputsFromUrlParams()
+  useEffect(() => {
+    const processedInputs = getProcessedInputsFromUrlParams()
+    setParameters(processedInputs)
   }, [getProcessedInputsFromUrlParams])
 
   useAsyncEffect(async () => {
+    if (!parameters)
+      return
     if (!initialized && parameters.token) {
       setSharedToken(parameters.token)
       try {

@@ -157,7 +157,7 @@ export const useEmbeddedChatbot = () => {
   useEffect(() => {
     // init inputs from url params
     setInitInputs(getProcessedInputsFromUrlParams())
-  }, [])
+  }, [getProcessedInputsFromUrlParams])
   useEffect(() => {
     const conversationInputs: Record<string, any> = {}
 
