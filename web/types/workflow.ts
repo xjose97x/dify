@@ -306,3 +306,7 @@ export type WorkflowRunHistory = {
 }
 
 export type IterationDurationMap = Record<string, number>
+
+export type NodeTracingListResponse = {
+  data: NodeTracing[]
+}

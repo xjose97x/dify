@@ -16,7 +16,6 @@ import More from './more'
 import WorkflowProcess from './workflow-process'
 import LoadingAnim from '@/app/components/base/chat/chat/loading-anim'
 import Citation from '@/app/components/base/chat/chat/citation'
-import type { AppData } from '@/models/share'
 import AnswerIcon from '@/app/components/base/answer-icon'
 import { ChevronRight } from '@/app/components/base/icons/src/vender/line/arrows'
 import cn from '@/utils/classnames'
@@ -32,7 +31,6 @@ type AnswerProps = {
   showPromptLog?: boolean
   chatAnswerContainerInner?: string
   hideProcessDetail?: boolean
-  appData?: AppData
   noChatInput?: boolean
   switchSibling?: (siblingMessageId: string) => void
 }
@@ -46,7 +44,6 @@ const Answer: FC<AnswerProps> = ({
   showPromptLog,
   chatAnswerContainerInner,
   hideProcessDetail,
-  appData,
   noChatInput,
   switchSibling,
 }) => {
@@ -56,7 +53,6 @@ const Answer: FC<AnswerProps> = ({
     citation,
     agent_thoughts,
     more,
-    annotation,
     workflowProcess,
     allFiles,
     message_files,
@@ -132,16 +128,6 @@ const Answer: FC<AnswerProps> = ({
             {/** Render the normal steps */}
             {
               workflowProcess && !hideProcessDetail && (
-                <WorkflowProcess
-                  data={workflowProcess}
-                  item={item}
-                  hideProcessDetail={hideProcessDetail}
-                />
-              )
-            }
-            {/** Hide workflow steps by it's settings in siteInfo */}
-            {
-              workflowProcess && hideProcessDetail && appData && appData.site.show_workflow_steps && (
                 <WorkflowProcess
                   data={workflowProcess}
                   item={item}

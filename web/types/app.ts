@@ -161,6 +161,16 @@ export type Model = {
   completion_params: CompletionParams
 }
 
+export type AnnotationReplyConfig = {
+  id: string
+  enabled: boolean
+  score_threshold: number
+  embedding_model: {
+    embedding_provider_name: string
+    embedding_model_name: string
+  }
+}
+
 export type ModelConfig = {
   opening_statement: string
   suggested_questions?: string[]
@@ -188,6 +198,7 @@ export type ModelConfig = {
   sensitive_word_avoidance: {
     enabled: boolean
   }
+  annotation_reply?: AnnotationReplyConfig
   agent_mode: {
     enabled: boolean
   }
