@@ -35,11 +35,6 @@ export const LOCALE_COOKIE_NAME = 'locale'
 
 export const MAX_VAR_KEY_LENGTH = 30
 
-export const DATASET_DEFAULT = {
-  top_k: 4,
-  score_threshold: 0.8,
-}
-
 export const VAR_REGEX = /\{\{(#[a-zA-Z0-9_-]{1,50}(\.[a-zA-Z_][a-zA-Z0-9_]{0,29}){1,10}#)\}\}/gi
 
 export const resetReg = () => VAR_REGEX.lastIndex = 0

@@ -20,17 +20,6 @@ export type FeedbackType = {
   content?: string | null
 }
 
-export type FeedbackFunc = (
-  messageId: string,
-  feedback: FeedbackType
-) => Promise<any>
-export type SubmitAnnotationFunc = (
-  messageId: string,
-  content: string
-) => Promise<any>
-
-export type DisplayScene = 'web' | 'console'
-
 export type ToolInfoInThought = {
   name: string
   label: string
