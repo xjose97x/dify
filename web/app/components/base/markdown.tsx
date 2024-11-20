@@ -1,3 +1,4 @@
+'use client'
 import ReactMarkdown from 'react-markdown'
 import ReactEcharts from 'echarts-for-react'
 import 'katex/dist/katex.min.css'

@@ -1,20 +1,7 @@
-import type { Viewport } from 'next'
 import I18nServer from './components/i18n-server'
 import { getLocaleOnServer } from '@/i18n/server'
 import './styles/globals.css'
 import './styles/markdown.scss'
-
-export const metadata = {
-  title: 'Dify',
-}
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  viewportFit: 'cover',
-  userScalable: false,
-}
 
 const LocaleLayout = ({
   children,
