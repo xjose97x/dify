@@ -1,6 +1,5 @@
 /* eslint-disable import/no-mutable-exports */
 import { InputVarType } from '@/app/components/workflow/types'
-import { AgentStrategy } from '@/types/app'
 
 export let apiPrefix = ''
 export let publicApiPrefix = ''
@@ -88,13 +87,6 @@ export const ANNOTATION_DEFAULT = {
 }
 
 export const MAX_TOOLS_NUM = 10
-
-export const DEFAULT_AGENT_SETTING = {
-  enabled: false,
-  max_iteration: 5,
-  strategy: AgentStrategy.functionCall,
-  tools: [],
-}
 
 export const VAR_REGEX = /\{\{(#[a-zA-Z0-9_-]{1,50}(\.[a-zA-Z_][a-zA-Z0-9_]{0,29}){1,10}#)\}\}/gi
 

@@ -11,7 +11,6 @@ import type {
   ConversationItem,
 } from '@/models/share'
 import type { ChatConfig } from '@/app/components/base/chat/types'
-import type { SystemFeatures } from '@/types/feature'
 
 function getAction(action: 'get' | 'post' | 'del' | 'patch', isInstalledApp: boolean) {
   switch (action) {
@@ -134,46 +133,9 @@ export const fetchChatList = async (conversationId: string, isInstalledApp: bool
   return getAction('get', isInstalledApp)(getUrl('messages', isInstalledApp, installedAppId), { params: { conversation_id: conversationId, limit: 20, last_id: '' } }) as any
 }
 
-// Abandoned API interface
-// export const fetchAppVariables = async () => {
-//   return get(`variables`)
-// }
-
 // init value. wait for server update
 export const fetchAppParams = async (isInstalledApp: boolean, installedAppId = '') => {
   return (getAction('get', isInstalledApp))(getUrl('parameters', isInstalledApp, installedAppId)) as Promise<ChatConfig>
-}
-
-export const fetchSystemFeatures = async () => {
-  return (getAction('get', false))(getUrl('system-features', false, '')) as Promise<SystemFeatures>
-}
-
-export const fetchWebSAMLSSOUrl = async (appCode: string, redirectUrl: string) => {
-  return (getAction('get', false))(getUrl('/enterprise/sso/saml/login', false, ''), {
-    params: {
-      app_code: appCode,
-      redirect_url: redirectUrl,
-    },
-  }) as Promise<{ url: string }>
-}
-
-export const fetchWebOIDCSSOUrl = async (appCode: string, redirectUrl: string) => {
-  return (getAction('get', false))(getUrl('/enterprise/sso/oidc/login', false, ''), {
-    params: {
-      app_code: appCode,
-      redirect_url: redirectUrl,
-    },
-
-  }) as Promise<{ url: string }>
-}
-
-export const fetchWebOAuth2SSOUrl = async (appCode: string, redirectUrl: string) => {
-  return (getAction('get', false))(getUrl('/enterprise/sso/oauth2/login', false, ''), {
-    params: {
-      app_code: appCode,
-      redirect_url: redirectUrl,
-    },
-  }) as Promise<{ url: string }>
 }
 
 export const fetchAppMeta = async (isInstalledApp: boolean, installedAppId = '') => {
@@ -190,18 +152,6 @@ export const fetchMoreLikeThis = async (messageId: string, isInstalledApp: boole
       response_mode: 'blocking',
     },
   })
-}
-
-export const saveMessage = (messageId: string, isInstalledApp: boolean, installedAppId = '') => {
-  return (getAction('post', isInstalledApp))(getUrl('/saved-messages', isInstalledApp, installedAppId), { body: { message_id: messageId } })
-}
-
-export const fetchSavedMessage = async (isInstalledApp: boolean, installedAppId = '') => {
-  return (getAction('get', isInstalledApp))(getUrl('/saved-messages', isInstalledApp, installedAppId))
-}
-
-export const removeMessage = (messageId: string, isInstalledApp: boolean, installedAppId = '') => {
-  return (getAction('del', isInstalledApp))(getUrl(`/saved-messages/${messageId}`, isInstalledApp, installedAppId))
 }
 
 export const fetchSuggestedQuestions = (messageId: string, isInstalledApp: boolean, installedAppId = '') => {

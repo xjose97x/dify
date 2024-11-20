@@ -77,10 +77,6 @@ export type FetchWorkflowDraftResponse = {
   conversation_variables?: ConversationVariable[]
 }
 
-export type NodeTracingListResponse = {
-  data: NodeTracing[]
-}
-
 export type WorkflowStartedResponse = {
   task_id: string
   workflow_run_id: string
@@ -307,26 +303,6 @@ export type WorkflowRunHistory = {
     name: string
     email: string
   }
-}
-export type WorkflowRunHistoryResponse = {
-  data: WorkflowRunHistory[]
-}
-
-export type ChatRunHistoryResponse = {
-  data: WorkflowRunHistory[]
-}
-
-export type NodesDefaultConfigsResponse = {
-  type: string
-  config: any
-}[]
-
-export type ConversationVariableResponse = {
-  data: (ConversationVariable & { updated_at: number; created_at: number })[]
-  has_more: boolean
-  limit: number
-  total: number
-  page: number
 }
 
 export type IterationDurationMap = Record<string, number>

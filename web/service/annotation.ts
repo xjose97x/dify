@@ -48,18 +48,10 @@ export const annotationBatchImport: Fetcher<{ job_id: string; job_status: string
   return post<{ job_id: string; job_status: string }>(url, { body }, { bodyStringify: false, deleteContentType: true })
 }
 
-export const checkAnnotationBatchImportProgress: Fetcher<{ job_id: string; job_status: string }, { jobID: string; appId: string }> = ({ jobID, appId }) => {
-  return get<{ job_id: string; job_status: string }>(`/apps/${appId}/annotations/batch-import-status/${jobID}`)
-}
-
 export const editAnnotation = (appId: string, annotationId: string, body: AnnotationItemBasic) => {
   return post(`apps/${appId}/annotations/${annotationId}`, { body })
 }
 
 export const delAnnotation = (appId: string, annotationId: string) => {
   return del(`apps/${appId}/annotations/${annotationId}`)
-}
-
-export const fetchHitHistoryList = (appId: string, annotationId: string, params: Record<string, any>) => {
-  return get(`apps/${appId}/annotations/${annotationId}/hit-histories`, { params })
 }

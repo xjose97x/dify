@@ -1,5 +1,4 @@
 import type { AnnotationReplyConfig, ChatPromptConfig, CompletionPromptConfig, DatasetConfigs, PromptMode } from '@/models/debug'
-import type { CollectionType } from '@/app/components/tools/types'
 import type { LanguagesSupported } from '@/i18n/language'
 import type { Tag } from '@/app/components/base/tag-management/constant'
 import type {
@@ -113,36 +112,6 @@ export type UserInputFormItem = {
   'select': SelectTypeFormItem
 } | {
   'paragraph': TextTypeFormItem
-}
-
-export type AgentTool = {
-  provider_id: string
-  provider_type: CollectionType
-  provider_name: string
-  tool_name: string
-  tool_label: string
-  tool_parameters: Record<string, any>
-  enabled: boolean
-  isDeleted?: boolean
-  notAuthor?: boolean
-}
-
-export type ToolItem = {
-  dataset: {
-    enabled: boolean
-    id: string
-  }
-} | {
-  'sensitive-word-avoidance': {
-    enabled: boolean
-    words: string[]
-    canned_response: string
-  }
-} | AgentTool
-
-export enum AgentStrategy {
-  functionCall = 'function_call',
-  react = 'react',
 }
 
 export type CompletionParams = {
@@ -351,24 +320,6 @@ export type App = {
   /** api site url */
   api_base_url: string
   tags: Tag[]
-}
-
-export type AppSSO = {
-  enable_sso: boolean
-}
-
-/**
- * App Template
- */
-export type AppTemplate = {
-  /** Name */
-  name: string
-  /** Description */
-  description: string
-  /** Mode */
-  mode: AppMode
-  /** Model */
-  model_config: ModelConfig
 }
 
 export enum Resolution {
