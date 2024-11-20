@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams, usePathname } from 'next/navigation'
 import {
   RiCloseLine,
   RiLoader2Line,
@@ -37,8 +36,8 @@ const VoiceInput = ({
   const [originDuration, setOriginDuration] = useState(0)
   const [startRecord, setStartRecord] = useState(false)
   const [startConvert, setStartConvert] = useState(false)
-  const pathname = usePathname()
-  const params = useParams()
+  const pathname = location.pathname
+  const params = Object.fromEntries(new URLSearchParams(location.search))
   const clearInterval = useRafInterval(() => {
     setOriginDuration(originDuration + 1)
   }, 1000)

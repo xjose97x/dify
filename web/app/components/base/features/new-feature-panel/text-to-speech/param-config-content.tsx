@@ -1,7 +1,6 @@
 'use client'
 import produce from 'immer'
 import React, { Fragment } from 'react'
-import { usePathname } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { RiCloseLine } from '@remixicon/react'
 import { Listbox, Transition } from '@headlessui/react'
@@ -25,9 +24,6 @@ const VoiceParamConfig = ({
   onChange,
 }: VoiceParamConfigProps) => {
   const { t } = useTranslation()
-  const pathname = usePathname()
-  const matched = pathname.match(/\/app\/([^/]+)/)
-  const appId = (matched?.length && matched[1]) ? matched[1] : ''
   const text2speech = useFeatures(state => state.features.text2speech)
   const featuresStore = useFeaturesStore()
 
@@ -35,8 +31,6 @@ const VoiceParamConfig = ({
   if (languages && !languageItem)
     languageItem = languages[0]
   const localLanguagePlaceholder = languageItem?.name || t('common.placeholder.select')
-
-  const language = languageItem?.value
 
   const handleChange = (value: Record<string, string>) => {
     const {

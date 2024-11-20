@@ -7,7 +7,6 @@ import {
 import { useTranslation } from 'react-i18next'
 import { produce, setAutoFreeze } from 'immer'
 import { uniqBy } from 'lodash-es'
-import { useParams, usePathname } from 'next/navigation'
 import { v4 as uuidV4 } from 'uuid'
 import type {
   ChatConfig,
@@ -60,8 +59,8 @@ export const useChat = (
   const [suggestedQuestions, setSuggestQuestions] = useState<string[]>([])
   const conversationMessagesAbortControllerRef = useRef<AbortController | null>(null)
   const suggestedQuestionsAbortControllerRef = useRef<AbortController | null>(null)
-  const params = useParams()
-  const pathname = usePathname()
+  const params = Object.fromEntries(new URLSearchParams(location.search))
+  const pathname = location.pathname
   useEffect(() => {
     setAutoFreeze(false)
     return () => {
