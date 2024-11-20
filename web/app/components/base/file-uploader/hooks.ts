@@ -3,7 +3,6 @@ import {
   useCallback,
   useState,
 } from 'react'
-import { useParams } from 'next/navigation'
 import produce from 'immer'
 import { v4 as uuid4 } from 'uuid'
 import { useTranslation } from 'react-i18next'
@@ -49,7 +48,7 @@ export const useFile = (fileConfig: FileUpload) => {
   const { t } = useTranslation()
   const { notify } = useToastContext()
   const fileStore = useFileStore()
-  const params = useParams()
+  const params = Object.fromEntries(new URLSearchParams(location.search))
   const { imgSizeLimit, docSizeLimit, audioSizeLimit, videoSizeLimit } = useFileSizeLimit(fileConfig.fileUploadConfig)
 
   const checkSizeLimit = useCallback((fileType: string, fileSize: number) => {

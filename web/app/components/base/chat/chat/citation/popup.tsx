@@ -1,6 +1,5 @@
 import { Fragment, useState } from 'react'
 import type { FC } from 'react'
-import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import Tooltip from './tooltip'
 import ProgressTooltip from './progress-tooltip'
@@ -75,12 +74,12 @@ const Popup: FC<PopupProps> = ({
                         </div>
                         {
                           showHitInfo && (
-                            <Link
+                            <a
                               href={`/datasets/${source.dataset_id}/documents/${source.document_id}`}
                               className='hidden items-center h-[18px] text-xs text-primary-600 group-hover:flex'>
                               {t('common.chat.citation.linkToDataset')}
                               <ArrowUpRight className='ml-1 w-3 h-3' />
-                            </Link>
+                            </a>
                           )
                         }
                       </div>

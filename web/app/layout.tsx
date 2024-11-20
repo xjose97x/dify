@@ -1,22 +1,7 @@
-import type { Viewport } from 'next'
 import I18nServer from './components/i18n-server'
-import BrowserInitor from './components/browser-initor'
-import SentryInitor from './components/sentry-initor'
 import { getLocaleOnServer } from '@/i18n/server'
 import './styles/globals.css'
 import './styles/markdown.scss'
-
-export const metadata = {
-  title: 'Dify',
-}
-
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  viewportFit: 'cover',
-  userScalable: false,
-}
 
 const LocaleLayout = ({
   children,
@@ -44,11 +29,7 @@ const LocaleLayout = ({
         data-public-site-about={process.env.NEXT_PUBLIC_SITE_ABOUT}
         data-public-text-generation-timeout-ms={process.env.NEXT_PUBLIC_TEXT_GENERATION_TIMEOUT_MS}
       >
-        <BrowserInitor>
-          <SentryInitor>
-            <I18nServer>{children}</I18nServer>
-          </SentryInitor>
-        </BrowserInitor>
+        <I18nServer>{children}</I18nServer>
       </body>
     </html>
   )

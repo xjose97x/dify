@@ -7,7 +7,6 @@ import {
 import { useTranslation } from 'react-i18next'
 import { produce, setAutoFreeze } from 'immer'
 import { uniqBy } from 'lodash-es'
-import { useParams, usePathname } from 'next/navigation'
 import { v4 as uuidV4 } from 'uuid'
 import type {
   ChatConfig,
@@ -24,7 +23,6 @@ import { useToastContext } from '@/app/components/base/toast'
 import { ssePost } from '@/service/base'
 import type { Annotation } from '@/models/log'
 import { WorkflowRunningStatus } from '@/app/components/workflow/types'
-import useTimestamp from '@/hooks/use-timestamp'
 import { AudioPlayerManager } from '@/app/components/base/audio-btn/audio.player.manager'
 import type { FileEntity } from '@/app/components/base/file-uploader/types'
 import {
@@ -50,7 +48,6 @@ export const useChat = (
   stopChat?: (taskId: string) => void,
 ) => {
   const { t } = useTranslation()
-  const { formatTime } = useTimestamp()
   const { notify } = useToastContext()
   const conversationId = useRef('')
   const hasStopResponded = useRef(false)
@@ -62,8 +59,8 @@ export const useChat = (
   const [suggestedQuestions, setSuggestQuestions] = useState<string[]>([])
   const conversationMessagesAbortControllerRef = useRef<AbortController | null>(null)
   const suggestedQuestionsAbortControllerRef = useRef<AbortController | null>(null)
-  const params = useParams()
-  const pathname = usePathname()
+  const params = Object.fromEntries(new URLSearchParams(location.search))
+  const pathname = location.pathname
   useEffect(() => {
     setAutoFreeze(false)
     return () => {
@@ -327,7 +324,7 @@ export const useChat = (
                       : []),
                   ],
                   more: {
-                    time: formatTime(newResponseItem.created_at, 'hh:mm A'),
+                    time: newResponseItem.created_at,
                     tokens: newResponseItem.answer_tokens + newResponseItem.message_tokens,
                     latency: newResponseItem.provider_response_latency.toFixed(2),
                   },
@@ -548,7 +545,6 @@ export const useChat = (
     notify,
     handleUpdateChatList,
     handleResponding,
-    formatTime,
     params.token,
     params.appId,
     pathname,

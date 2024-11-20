@@ -13,7 +13,6 @@ import CopyBtn from '@/app/components/base/copy-btn'
 import { MessageFast } from '@/app/components/base/icons/src/vender/solid/communication'
 import AudioBtn from '@/app/components/base/audio-btn'
 import AnnotationCtrlBtn from '@/app/components/base/features/new-feature-panel/annotation-reply/annotation-ctrl-btn'
-import EditReplyModal from '@/app/components/app/annotation/edit-annotation-modal'
 import {
   ThumbsDown,
   ThumbsUp,
@@ -218,19 +217,6 @@ const Operation: FC<OperationProps> = ({
           )
         }
       </div>
-      <EditReplyModal
-        isShow={isShowReplyModal}
-        onHide={() => setIsShowReplyModal(false)}
-        query={question}
-        answer={content}
-        onEdited={(editedQuery, editedAnswer) => onAnnotationEdited?.(editedQuery, editedAnswer, index)}
-        onAdded={(annotationId, authorName, editedQuery, editedAnswer) => onAnnotationAdded?.(annotationId, authorName, editedQuery, editedAnswer, index)}
-        appId={config?.appId || ''}
-        messageId={id}
-        annotationId={annotation?.id || ''}
-        createdAt={annotation?.created_at}
-        onRemove={() => onAnnotationRemoved?.(index)}
-      />
     </>
   )
 }

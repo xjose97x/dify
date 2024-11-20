@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useEffect, useMemo } from 'react'
 import Chat from '../chat'
 import type {
@@ -73,10 +74,10 @@ const ChatWrapper = () => {
   }, [])
 
   const doSend: OnSend = useCallback((message, files, last_answer) => {
-    const query = `<pageContext style="display: none">
+    const query = `<div id="PageContext" style="display: none">
      El usuario esta actualmente en la pagina: ${newConversationInputs.currentPage}
-    </pageContext>
-    <message>${message}</message>
+    </div>
+    <div id="message">${message}</div>
     `
     const data: any = {
       query,

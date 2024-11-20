@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import type { ClipboardEvent } from 'react'
-import { useParams } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { imageUpload } from './utils'
 import { useToastContext } from '@/app/components/base/toast'
@@ -8,7 +7,7 @@ import { ALLOW_FILE_EXTENSIONS, TransferMethod } from '@/types/app'
 import type { ImageFile, VisionSettings } from '@/types/app'
 
 export const useImageFiles = () => {
-  const params = useParams()
+  const params = Object.fromEntries(new URLSearchParams(location.search))
   const { t } = useTranslation()
   const { notify } = useToastContext()
   const [files, setFiles] = useState<ImageFile[]>([])
@@ -119,7 +118,7 @@ type useLocalUploaderProps = {
 
 export const useLocalFileUploader = ({ limit, disabled = false, onUpload }: useLocalUploaderProps) => {
   const { notify } = useToastContext()
-  const params = useParams()
+  const params = Object.fromEntries(new URLSearchParams(location.search))
   const { t } = useTranslation()
 
   const handleLocalFileUpload = useCallback((file: File) => {

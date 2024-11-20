@@ -3,7 +3,6 @@ import type {
   ReactNode,
 } from 'react'
 import { memo, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import type {
   ChatConfig,
   ChatItem,
@@ -13,15 +12,13 @@ import AgentContent from './agent-content'
 import BasicContent from './basic-content'
 import SuggestedQuestions from './suggested-questions'
 import More from './more'
-import WorkflowProcess from './workflow-process'
 import LoadingAnim from '@/app/components/base/chat/chat/loading-anim'
 import Citation from '@/app/components/base/chat/chat/citation'
-import { EditTitle } from '@/app/components/app/annotation/edit-annotation-modal/edit-item'
-import type { AppData } from '@/models/share'
 import AnswerIcon from '@/app/components/base/answer-icon'
 import { ChevronRight } from '@/app/components/base/icons/src/vender/line/arrows'
 import cn from '@/utils/classnames'
 import { FileList } from '@/app/components/base/file-uploader'
+import type { AppData } from '@/models/share'
 
 type AnswerProps = {
   item: ChatItem
@@ -46,18 +43,14 @@ const Answer: FC<AnswerProps> = ({
   responding,
   showPromptLog,
   chatAnswerContainerInner,
-  hideProcessDetail,
-  appData,
   noChatInput,
   switchSibling,
 }) => {
-  const { t } = useTranslation()
   const {
     content,
     citation,
     agent_thoughts,
     more,
-    annotation,
     workflowProcess,
     allFiles,
     message_files,
@@ -132,25 +125,6 @@ const Answer: FC<AnswerProps> = ({
             }
             {/** Render the normal steps */}
             {
-              workflowProcess && !hideProcessDetail && (
-                <WorkflowProcess
-                  data={workflowProcess}
-                  item={item}
-                  hideProcessDetail={hideProcessDetail}
-                />
-              )
-            }
-            {/** Hide workflow steps by it's settings in siteInfo */}
-            {
-              workflowProcess && hideProcessDetail && appData && appData.site.show_workflow_steps && (
-                <WorkflowProcess
-                  data={workflowProcess}
-                  item={item}
-                  hideProcessDetail={hideProcessDetail}
-                />
-              )
-            }
-            {
               responding && !content && !hasAgentThoughts && (
                 <div className='flex items-center justify-center w-6 h-5'>
                   <LoadingAnim type='text' />
@@ -189,14 +163,6 @@ const Answer: FC<AnswerProps> = ({
                   showDeleteAction={false}
                   showDownloadAction
                   canPreview
-                />
-              )
-            }
-            {
-              annotation?.id && annotation.authorName && (
-                <EditTitle
-                  className='mt-1'
-                  title={t('appAnnotation.editBy', { author: annotation.authorName })}
                 />
               )
             }

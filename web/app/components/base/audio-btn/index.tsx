@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { t } from 'i18next'
-import { useParams, usePathname } from 'next/navigation'
 import s from './style.module.css'
 import Tooltip from '@/app/components/base/tooltip'
 import Loading from '@/app/components/base/loading'
@@ -27,8 +26,8 @@ const AudioBtn = ({
 }: AudioBtnProps) => {
   const [audioState, setAudioState] = useState<AudioState>('initial')
 
-  const params = useParams()
-  const pathname = usePathname()
+  const params = Object.fromEntries(new URLSearchParams(location.search))
+  const pathname = location.pathname
   const audio_finished_call = (event: string): any => {
     switch (event) {
       case 'ended':

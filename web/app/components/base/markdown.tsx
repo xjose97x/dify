@@ -1,5 +1,5 @@
+import dynamic from 'next/dynamic'
 import ReactMarkdown from 'react-markdown'
-import ReactEcharts from 'echarts-for-react'
 import 'katex/dist/katex.min.css'
 import RemarkMath from 'remark-math'
 import RemarkBreaks from 'remark-breaks'
@@ -8,8 +8,7 @@ import RemarkGfm from 'remark-gfm'
 import RehypeRaw from 'rehype-raw'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atelierHeathLight } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import type { RefObject } from 'react'
-import { Component, memo, useEffect, useMemo, useRef, useState } from 'react'
+import { Component, memo, useMemo, useRef, useState } from 'react'
 import type { CodeComponent } from 'react-markdown/lib/ast-to-react'
 import cn from '@/utils/classnames'
 import CopyBtn from '@/app/components/base/copy-btn'
@@ -22,6 +21,7 @@ import AudioGallery from '@/app/components/base/audio-gallery'
 import SVGRenderer from '@/app/components/base/svg-gallery'
 import MarkdownButton from '@/app/components/base/markdown-blocks/button'
 import MarkdownForm from '@/app/components/base/markdown-blocks/form'
+const ReactEcharts = dynamic(() => import('echarts-for-react').then(mod => mod), { ssr: false })
 
 // Available language https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_LANGUAGES_HLJS.MD
 const capitalizationLanguageNameMap: Record<string, string> = {
@@ -75,29 +75,6 @@ export function PreCode(props: { children: any }) {
       {props.children}
     </pre>
   )
-}
-
-// eslint-disable-next-line unused-imports/no-unused-vars
-const useLazyLoad = (ref: RefObject<Element>): boolean => {
-  const [isIntersecting, setIntersecting] = useState<boolean>(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIntersecting(true)
-        observer.disconnect()
-      }
-    })
-
-    if (ref.current)
-      observer.observe(ref.current)
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [ref])
-
-  return isIntersecting
 }
 
 // **Add code block

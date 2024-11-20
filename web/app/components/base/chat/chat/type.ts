@@ -1,8 +1,13 @@
-import type { TypeWithI18N } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import type { Annotation, MessageRating } from '@/models/log'
 import type { FileEntity } from '@/app/components/base/file-uploader/types'
 import type { InputVarType } from '@/app/components/workflow/types'
 import type { FileResponse } from '@/types/workflow'
+
+export type TypeWithI18N<T = string> = {
+  en_US: T
+  zh_Hans: T
+  [key: string]: T
+}
 
 export type MessageMore = {
   time: string
@@ -14,17 +19,6 @@ export type FeedbackType = {
   rating: MessageRating
   content?: string | null
 }
-
-export type FeedbackFunc = (
-  messageId: string,
-  feedback: FeedbackType
-) => Promise<any>
-export type SubmitAnnotationFunc = (
-  messageId: string,
-  content: string
-) => Promise<any>
-
-export type DisplayScene = 'web' | 'console'
 
 export type ToolInfoInThought = {
   name: string
