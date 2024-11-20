@@ -1,6 +1,4 @@
 /* eslint-disable import/no-mutable-exports */
-import { InputVarType } from '@/app/components/workflow/types'
-
 export let apiPrefix = ''
 export let publicApiPrefix = ''
 
@@ -35,9 +33,6 @@ export const SUPPORT_MAIL_LOGIN = !!(process.env.NEXT_PUBLIC_SUPPORT_MAIL_LOGIN 
 
 export const LOCALE_COOKIE_NAME = 'locale'
 
-export const DEFAULT_VALUE_MAX_LEN = 48
-export const DEFAULT_PARAGRAPH_VALUE_MAX_LEN = 1000
-
 export const zhRegex = /^[\u4E00-\u9FA5]$/m
 export const emojiRegex = /^[\uD800-\uDBFF][\uDC00-\uDFFF]$/m
 export const emailRegex = /^[\w.!#$%&'*+\-/=?^{|}~]+@([\w-]+\.)+[\w-]{2,}$/m
@@ -52,41 +47,16 @@ export const getMaxVarNameLength = (value: string) => {
 
 export const MAX_VAR_KEY_LENGTH = 30
 
-export const MAX_PROMPT_MESSAGE_LENGTH = 10
-
-export const VAR_ITEM_TEMPLATE = {
-  key: '',
-  name: '',
-  type: 'string',
-  max_length: DEFAULT_VALUE_MAX_LEN,
-  required: true,
-}
-
-export const VAR_ITEM_TEMPLATE_IN_WORKFLOW = {
-  variable: '',
-  label: '',
-  type: InputVarType.textInput,
-  max_length: DEFAULT_VALUE_MAX_LEN,
-  required: true,
-  options: [],
-}
-
 export const appDefaultIconBackground = '#D5F5F6'
-
-export const NEED_REFRESH_APP_LIST_KEY = 'needRefreshAppList'
 
 export const DATASET_DEFAULT = {
   top_k: 4,
   score_threshold: 0.8,
 }
 
-export const APP_PAGE_LIMIT = 10
-
 export const ANNOTATION_DEFAULT = {
   score_threshold: 0.9,
 }
-
-export const MAX_TOOLS_NUM = 10
 
 export const VAR_REGEX = /\{\{(#[a-zA-Z0-9_-]{1,50}(\.[a-zA-Z_][a-zA-Z0-9_]{0,29}){1,10}#)\}\}/gi
 

@@ -1,12 +1,10 @@
 'use client'
 
-import { createRef, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { createRef, useCallback, useEffect, useRef, useState } from 'react'
 import useSWR from 'swr'
 import { createContext, useContext, useContextSelector } from 'use-context-selector'
 import type { FC, ReactNode } from 'react'
-import { fetchCurrentWorkspace, fetchLanggeniusVersion, fetchUserProfile, getSystemFeatures } from '@/service/common'
 import { Theme } from '@/types/app'
-import type { ICurrentWorkspace, LangGeniusVersionResponse, UserProfileResponse } from '@/models/common'
 import type { SystemFeatures } from '@/types/feature'
 import { defaultSystemFeatures } from '@/types/feature'
 
@@ -14,52 +12,15 @@ export type AppContextValue = {
   theme: Theme
   setTheme: (theme: Theme) => void
   systemFeatures: SystemFeatures
-  mutateUserProfile: VoidFunction
-  currentWorkspace: ICurrentWorkspace
-  isCurrentWorkspaceManager: boolean
-  isCurrentWorkspaceOwner: boolean
-  isCurrentWorkspaceEditor: boolean
-  isCurrentWorkspaceDatasetOperator: boolean
-  mutateCurrentWorkspace: VoidFunction
   pageContainerRef: React.RefObject<HTMLDivElement>
-  langeniusVersionInfo: LangGeniusVersionResponse
   useSelector: typeof useSelector
-}
-
-const initialLangeniusVersionInfo = {
-  current_env: '',
-  current_version: '',
-  latest_version: '',
-  release_date: '',
-  release_notes: '',
-  version: '',
-  can_auto_update: false,
-}
-
-const initialWorkspaceInfo: ICurrentWorkspace = {
-  id: '',
-  name: '',
-  plan: '',
-  status: '',
-  created_at: 0,
-  role: 'normal',
-  providers: [],
-  in_trail: true,
 }
 
 const AppContext = createContext<AppContextValue>({
   theme: Theme.light,
-  systemFeatures: defaultSystemFeatures,
   setTheme: () => { },
-  currentWorkspace: initialWorkspaceInfo,
-  isCurrentWorkspaceManager: false,
-  isCurrentWorkspaceOwner: false,
-  isCurrentWorkspaceEditor: false,
-  isCurrentWorkspaceDatasetOperator: false,
-  mutateUserProfile: () => { },
-  mutateCurrentWorkspace: () => { },
+  systemFeatures: defaultSystemFeatures,
   pageContainerRef: createRef(),
-  langeniusVersionInfo: initialLangeniusVersionInfo,
   useSelector,
 })
 
@@ -74,39 +35,9 @@ export type AppContextProviderProps = {
 export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) => {
   const pageContainerRef = useRef<HTMLDivElement>(null)
 
-  const { data: userProfileResponse, mutate: mutateUserProfile } = useSWR({ url: '/account/profile', params: {} }, fetchUserProfile)
-  const { data: currentWorkspaceResponse, mutate: mutateCurrentWorkspace } = useSWR({ url: '/workspaces/current', params: {} }, fetchCurrentWorkspace)
-
-  const { data: systemFeatures } = useSWR({ url: '/console/system-features' }, getSystemFeatures, {
+  const { data: systemFeatures } = useSWR({ url: '/console/system-features' }, {
     fallbackData: defaultSystemFeatures,
   })
-
-  const [userProfile, setUserProfile] = useState<UserProfileResponse>()
-  const [langeniusVersionInfo, setLangeniusVersionInfo] = useState<LangGeniusVersionResponse>(initialLangeniusVersionInfo)
-  const [currentWorkspace, setCurrentWorkspace] = useState<ICurrentWorkspace>(initialWorkspaceInfo)
-  const isCurrentWorkspaceManager = useMemo(() => ['owner', 'admin'].includes(currentWorkspace.role), [currentWorkspace.role])
-  const isCurrentWorkspaceOwner = useMemo(() => currentWorkspace.role === 'owner', [currentWorkspace.role])
-  const isCurrentWorkspaceEditor = useMemo(() => ['owner', 'admin', 'editor'].includes(currentWorkspace.role), [currentWorkspace.role])
-  const isCurrentWorkspaceDatasetOperator = useMemo(() => currentWorkspace.role === 'dataset_operator', [currentWorkspace.role])
-  const updateUserProfileAndVersion = useCallback(async () => {
-    if (userProfileResponse && !userProfileResponse.bodyUsed) {
-      const result = await userProfileResponse.json()
-      setUserProfile(result)
-      const current_version = userProfileResponse.headers.get('x-version')
-      const current_env = process.env.NODE_ENV === 'development' ? 'DEVELOPMENT' : userProfileResponse.headers.get('x-env')
-      const versionData = await fetchLanggeniusVersion({ url: '/version', params: { current_version } })
-      setLangeniusVersionInfo({ ...versionData, current_version, latest_version: versionData.version, current_env })
-    }
-  }, [userProfileResponse])
-
-  useEffect(() => {
-    updateUserProfileAndVersion()
-  }, [updateUserProfileAndVersion, userProfileResponse])
-
-  useEffect(() => {
-    if (currentWorkspaceResponse)
-      setCurrentWorkspace(currentWorkspaceResponse)
-  }, [currentWorkspaceResponse])
 
   const [theme, setTheme] = useState<Theme>(Theme.light)
   const handleSetTheme = useCallback((theme: Theme) => {
@@ -124,16 +55,8 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
       theme,
       setTheme: handleSetTheme,
       systemFeatures,
-      mutateUserProfile,
       pageContainerRef,
-      langeniusVersionInfo,
       useSelector,
-      currentWorkspace,
-      isCurrentWorkspaceManager,
-      isCurrentWorkspaceOwner,
-      isCurrentWorkspaceEditor,
-      isCurrentWorkspaceDatasetOperator,
-      mutateCurrentWorkspace,
     }}>
       <div className='flex flex-col h-full overflow-y-auto'>
         <div ref={pageContainerRef} className='grow relative flex flex-col overflow-y-auto overflow-x-hidden bg-background-body'>
