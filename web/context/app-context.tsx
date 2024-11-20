@@ -1,17 +1,13 @@
 'use client'
 
 import { createRef, useCallback, useEffect, useRef, useState } from 'react'
-import useSWR from 'swr'
 import { createContext, useContext, useContextSelector } from 'use-context-selector'
 import type { FC, ReactNode } from 'react'
 import { Theme } from '@/types/app'
-import type { SystemFeatures } from '@/types/feature'
-import { defaultSystemFeatures } from '@/types/feature'
 
 export type AppContextValue = {
   theme: Theme
   setTheme: (theme: Theme) => void
-  systemFeatures: SystemFeatures
   pageContainerRef: React.RefObject<HTMLDivElement>
   useSelector: typeof useSelector
 }
@@ -19,7 +15,6 @@ export type AppContextValue = {
 const AppContext = createContext<AppContextValue>({
   theme: Theme.light,
   setTheme: () => { },
-  systemFeatures: defaultSystemFeatures,
   pageContainerRef: createRef(),
   useSelector,
 })
@@ -34,10 +29,6 @@ export type AppContextProviderProps = {
 
 export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) => {
   const pageContainerRef = useRef<HTMLDivElement>(null)
-
-  const { data: systemFeatures } = useSWR({ url: '/console/system-features' }, {
-    fallbackData: defaultSystemFeatures,
-  })
 
   const [theme, setTheme] = useState<Theme>(Theme.light)
   const handleSetTheme = useCallback((theme: Theme) => {
@@ -54,7 +45,6 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
     <AppContext.Provider value={{
       theme,
       setTheme: handleSetTheme,
-      systemFeatures,
       pageContainerRef,
       useSelector,
     }}>

@@ -23,24 +23,6 @@ import type {
 import { WorkflowContext } from './context'
 import type { NodeTracing } from '@/types/workflow'
 
-// #TODO chatVar#
-// const MOCK_DATA = [
-//   {
-//     id: 'fjlaksdjflkjg-dfjlajfl0dnfkafjk-djfdkafj-djfak',
-//     name: 'chat_history',
-//     value_type: 'array[message]',
-//     value: [],
-//     description: 'The chat history of the conversation',
-//   },
-//   {
-//     id: 'fljdaklfjl-dfjlafj0-dklajglje-eknglh',
-//     name: 'order_id',
-//     value: '123456',
-//     value_type: 'string',
-//     description: '',
-//   },
-// ]
-
 type PreviewRunningData = WorkflowRunningData & {
   resultTabActive?: boolean
   resultText?: string
