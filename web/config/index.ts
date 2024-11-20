@@ -41,5 +41,3 @@ else if (globalThis.document?.body?.getAttribute('data-public-text-generation-ti
   textGenerationTimeoutMs = parseInt(globalThis.document.body.getAttribute('data-public-text-generation-timeout-ms') as string)
 
 export const TEXT_GENERATION_TIMEOUT_MS = textGenerationTimeoutMs
-
-export const DISABLE_UPLOAD_IMAGE_AS_ICON = process.env.NEXT_PUBLIC_DISABLE_UPLOAD_IMAGE_AS_ICON === 'true'

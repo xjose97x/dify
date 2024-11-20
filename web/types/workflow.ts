@@ -1,10 +1,5 @@
-import type { Viewport } from 'reactflow'
 import type {
   BlockEnum,
-  ConversationVariable,
-  Edge,
-  EnvironmentVariable,
-  Node,
 } from '@/app/components/workflow/types'
 import type { TransferMethod } from '@/types/app'
 
@@ -54,27 +49,6 @@ export type NodeTracing = {
   parallel_start_node_id?: string
   parent_parallel_id?: string
   parent_parallel_start_node_id?: string
-}
-
-export type FetchWorkflowDraftResponse = {
-  id: string
-  graph: {
-    nodes: Node[]
-    edges: Edge[]
-    viewport?: Viewport
-  }
-  features?: any
-  created_at: number
-  created_by: {
-    id: string
-    name: string
-    email: string
-  }
-  hash: string
-  updated_at: number
-  tool_published: boolean
-  environment_variables?: EnvironmentVariable[]
-  conversation_variables?: ConversationVariable[]
 }
 
 export type WorkflowStartedResponse = {
@@ -278,35 +252,4 @@ export type TextReplaceResponse = {
   }
 }
 
-export type WorkflowRunHistory = {
-  id: string
-  sequence_number: number
-  version: string
-  conversation_id?: string
-  message_id?: string
-  graph: {
-    nodes: Node[]
-    edges: Edge[]
-    viewport?: Viewport
-  }
-  inputs: Record<string, string>
-  status: string
-  outputs: Record<string, any>
-  error?: string
-  elapsed_time: number
-  total_tokens: number
-  total_steps: number
-  created_at: number
-  finished_at: number
-  created_by_account: {
-    id: string
-    name: string
-    email: string
-  }
-}
-
 export type IterationDurationMap = Record<string, number>
-
-export type NodeTracingListResponse = {
-  data: NodeTracing[]
-}

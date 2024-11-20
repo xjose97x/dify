@@ -1,5 +1,27 @@
 import type { TransferMethod } from '@/types/app'
 
+export enum BlockEnum {
+  Start = 'start',
+  End = 'end',
+  Answer = 'answer',
+  LLM = 'llm',
+  KnowledgeRetrieval = 'knowledge-retrieval',
+  QuestionClassifier = 'question-classifier',
+  IfElse = 'if-else',
+  Code = 'code',
+  TemplateTransform = 'template-transform',
+  HttpRequest = 'http-request',
+  VariableAssigner = 'variable-assigner',
+  VariableAggregator = 'variable-aggregator',
+  Tool = 'tool',
+  ParameterExtractor = 'parameter-extractor',
+  Iteration = 'iteration',
+  DocExtractor = 'document-extractor',
+  ListFilter = 'list-operator',
+  IterationStart = 'iteration-start',
+  Assigner = 'assigner', // is now named as VariableAssigner
+}
+
 export enum InputVarType {
   textInput = 'text-input',
   paragraph = 'paragraph',
