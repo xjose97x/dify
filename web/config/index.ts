@@ -33,18 +33,6 @@ export const SUPPORT_MAIL_LOGIN = !!(process.env.NEXT_PUBLIC_SUPPORT_MAIL_LOGIN 
 
 export const LOCALE_COOKIE_NAME = 'locale'
 
-export const zhRegex = /^[\u4E00-\u9FA5]$/m
-export const emojiRegex = /^[\uD800-\uDBFF][\uDC00-\uDFFF]$/m
-export const emailRegex = /^[\w.!#$%&'*+\-/=?^{|}~]+@([\w-]+\.)+[\w-]{2,}$/m
-const MAX_ZN_VAR_NAME_LENGTH = 8
-const MAX_EN_VAR_VALUE_LENGTH = 30
-export const getMaxVarNameLength = (value: string) => {
-  if (zhRegex.test(value))
-    return MAX_ZN_VAR_NAME_LENGTH
-
-  return MAX_EN_VAR_VALUE_LENGTH
-}
-
 export const MAX_VAR_KEY_LENGTH = 30
 
 export const appDefaultIconBackground = '#D5F5F6'

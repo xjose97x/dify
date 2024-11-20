@@ -1,10 +1,5 @@
-import type { AnnotationReplyConfig, ChatPromptConfig, CompletionPromptConfig, DatasetConfigs, PromptMode } from '@/models/debug'
 import type { LanguagesSupported } from '@/i18n/language'
 import type { Tag } from '@/app/components/base/tag-management/constant'
-import type {
-  RerankingModeEnum,
-  WeightedScoreEnum,
-} from '@/models/datasets'
 import type { UploadFileSetting } from '@/app/components/workflow/types'
 
 export enum Theme {
@@ -45,12 +40,6 @@ export enum RETRIEVE_METHOD {
   hybrid = 'hybrid_search',
   invertedIndex = 'invertedIndex',
   keywordSearch = 'keyword_search',
-}
-
-export type VariableInput = {
-  key: string
-  name: string
-  value: string
 }
 
 /**
@@ -176,9 +165,6 @@ export type ModelConfig = {
   opening_statement: string
   suggested_questions?: string[]
   pre_prompt: string
-  prompt_type: PromptMode
-  chat_prompt_config: ChatPromptConfig | {}
-  completion_prompt_config: CompletionPromptConfig | {}
   user_input_form: UserInputFormItem[]
   dataset_query_variable?: string
   more_like_this: {
@@ -202,14 +188,10 @@ export type ModelConfig = {
   sensitive_word_avoidance: {
     enabled: boolean
   }
-  annotation_reply?: AnnotationReplyConfig
   agent_mode: {
     enabled: boolean
-    strategy?: AgentStrategy
-    tools: ToolItem[]
   }
   model: Model
-  dataset_configs: DatasetConfigs
   file_upload?: {
     image: VisionSettings
   } & UploadFileSetting
@@ -378,9 +360,7 @@ export type RetrievalConfig = {
   top_k: number
   score_threshold_enabled: boolean
   score_threshold: number
-  reranking_mode?: RerankingModeEnum
   weights?: {
-    weight_type: WeightedScoreEnum
     vector_setting: {
       vector_weight: number
       embedding_provider_name: string
