@@ -12,7 +12,6 @@ type State = {
 }
 
 type Action = {
-  setAppDetail: (appDetail?: App) => void
   setCurrentLogItem: (item?: IChatItem) => void
   setCurrentLogModalActiveTab: (tab: string) => void
   setShowPromptLogModal: (showPromptLogModal: boolean) => void
@@ -22,7 +21,6 @@ type Action = {
 
 export const useStore = create<State & Action>(set => ({
   appDetail: undefined,
-  setAppDetail: appDetail => set(() => ({ appDetail })),
   currentLogItem: undefined,
   currentLogModalActiveTab: 'DETAIL',
   setCurrentLogItem: currentLogItem => set(() => ({ currentLogItem })),

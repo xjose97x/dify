@@ -1,8 +1,13 @@
-import type { TypeWithI18N } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import type { Annotation, MessageRating } from '@/models/log'
 import type { FileEntity } from '@/app/components/base/file-uploader/types'
 import type { InputVarType } from '@/app/components/workflow/types'
 import type { FileResponse } from '@/types/workflow'
+
+export type TypeWithI18N<T = string> = {
+  en_US: T
+  zh_Hans: T
+  [key: string]: T
+}
 
 export type MessageMore = {
   time: string

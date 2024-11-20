@@ -8,7 +8,7 @@ import { MessageCheckRemove, MessageFastPlus } from '@/app/components/base/icons
 import { MessageFast } from '@/app/components/base/icons/src/vender/solid/communication'
 import { Edit04 } from '@/app/components/base/icons/src/vender/line/general'
 import Tooltip from '@/app/components/base/tooltip'
-import { addAnnotation, delAnnotation } from '@/service/annotation'
+import { addAnnotation } from '@/service/annotation'
 import Toast from '@/app/components/base/toast'
 
 type Props = {
@@ -31,10 +31,8 @@ const CacheCtrlBtn: FC<Props> = ({
   answer,
   appId,
   messageId,
-  annotationId,
   onAdded,
   onEdit,
-  onRemoved,
 }) => {
   const { t } = useTranslation()
   const [showModal, setShowModal] = useState(false)
@@ -53,15 +51,6 @@ const CacheCtrlBtn: FC<Props> = ({
     onAdded(res.id, res.account?.name)
   }
 
-  const handleRemove = async () => {
-    await delAnnotation(appId, annotationId!)
-    Toast.notify({
-      message: t('common.api.actionSuccess') as string,
-      type: 'success',
-    })
-    onRemoved()
-    setShowModal(false)
-  }
   return (
     <div className={cn('inline-block', className)}>
       <div className='inline-flex p-0.5 space-x-0.5 rounded-lg bg-white border border-gray-100 shadow-md text-gray-500 cursor-pointer'>

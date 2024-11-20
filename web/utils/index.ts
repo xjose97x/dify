@@ -1,5 +1,3 @@
-import { escape } from 'lodash-es'
-
 export const sleep = (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -13,21 +11,6 @@ export async function asyncRunSafe<T = any>(fn: Promise<T>): Promise<[Error] | [
       return [e]
     return [new Error('unknown error')]
   }
-}
-
-const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_'
-
-export function randomString(length: number) {
-  let result = ''
-  for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)]
-  return result
-}
-
-export const getPurifyHref = (href: string) => {
-  if (!href)
-    return ''
-
-  return escape(href)
 }
 
 export async function fetchWithRetry<T = any>(fn: Promise<T>, retries = 3): Promise<[Error] | [null, T]> {
